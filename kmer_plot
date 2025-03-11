@@ -1,0 +1,102 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Load the k-mer count data
+male_kmers = pd.read_csv('/work/u1432917/M2_AG_kmers.txt', sep=' ', names=['kmer', 'count'])
+female_kmers = pd.read_csv('/work/u1432917/F2_AG_kmers.txt', sep=' ', names=['kmer', 'count'])
+
+# Merge the data on the kmer column
+merged_kmers = pd.merge(male_kmers, female_kmers, on='kmer', suffixes=('_male', '_female'))
+
+# Plot the data
+plt.figure(figsize=(12, 12))
+plt.scatter(merged_kmers['count_male'], merged_kmers['count_female'], alpha=0.5)
+
+# Set the limits for x and y axes
+plt.xlim(0, 6000)
+plt.ylim(0, 6000)
+
+# Add labels and title
+plt.xlabel('Count in male DNA')
+plt.ylabel('Count in female DNA')
+plt.title('K-mer Frequency Distribution')
+
+# Add annotation for different regions (optional)
+plt.text(5900, 500, 'male-specific', ha='center')
+plt.text(5000, 1500, 'male-biased', ha='center')
+plt.text(1500, 5000, 'female-biased', ha='center')
+plt.text(500, 5900, 'female-specific', ha='center')
+
+plt.grid(True)
+plt.savefig('/work/u1432917/kmer_plot.png')
+plt.show()
+
+###################################################
+# Plot the data
+plt.figure(figsize=(12, 12))
+plt.scatter(merged_kmers['count_male'], merged_kmers['count_female'], alpha=0.5)
+
+# Set the limits for x and y axes
+plt.xlim(0, 6000)
+plt.ylim(0, 6000)
+
+# Add labels and title
+plt.xlabel('Count in male DNA',fontsize=18)
+plt.ylabel('Count in female DNA',fontsize=18)
+plt.title('K-mer Frequency Distribution',fontsize=20)
+
+# Add annotation for different regions (optional)
+plt.text(5900, 500, 'male-specific', ha='center')
+plt.text(5000, 1500, 'male-biased', ha='center')
+plt.text(1500, 5000, 'female-biased', ha='center')
+plt.text(500, 5900, 'female-specific', ha='center')
+
+plt.grid(True)
+plt.savefig('/work/u1432917/kmer_plot18.png')
+plt.show()
+################################################################
+# Plot the data
+plt.figure(figsize=(12, 12))
+plt.scatter(merged_kmers['count_male'], merged_kmers['count_female'], alpha=0.5)
+
+# Set the limits for x and y axes
+plt.xlim(0, 6000)
+plt.ylim(0, 6000)
+
+# Add labels and title
+plt.xlabel('Count in male DNA',fontsize=10)
+plt.ylabel('Count in female DNA',fontsize=10)
+plt.title('K-mer Frequency Distribution',fontsize=22)
+
+# Add annotation for different regions (optional)
+plt.text(5900, 500, 'male-specific', ha='center')
+plt.text(5000, 1500, 'male-biased', ha='center')
+plt.text(1500, 5000, 'female-biased', ha='center')
+plt.text(500, 5900, 'female-specific', ha='center')
+
+plt.grid(True)
+plt.savefig('/work/u1432917/kmer_plot10.png')
+plt.show()
+#######################################################
+# Plot the data
+plt.figure(figsize=(12, 12))
+plt.scatter(merged_kmers['count_male'], merged_kmers['count_female'], alpha=0.5)
+
+# Set the limits for x and y axes
+plt.xlim(0, 6000)
+plt.ylim(0, 6000)
+
+# Add labels and title
+plt.xlabel('Count in male DNA',fontsize=28)
+plt.ylabel('Count in female DNA',fontsize=28)
+plt.title('K-mer Frequency Distribution',fontsize=30)
+
+# Add annotation for different regions (optional)
+plt.text(5900, 500, 'male-specific', ha='center')
+plt.text(5000, 1500, 'male-biased', ha='center')
+plt.text(1500, 5000, 'female-biased', ha='center')
+plt.text(500, 5900, 'female-specific', ha='center')
+
+plt.grid(True)
+plt.savefig('/work/u1432917/kmer_plot18.png')
+plt.show()
