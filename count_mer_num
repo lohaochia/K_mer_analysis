@@ -1,0 +1,20 @@
+from collections import defaultdict
+#計算每種kmer出現多少次
+# 初始化一个字典来存储重复次数与 k-mer 数量
+kmer_count = defaultdict(int)
+
+# 读取 k-mer 文件
+with open('M4_AG_kmers.txt', 'r') as file:
+    for line in file:
+        # 每行的格式是 k-mer 序列 和 重复次数
+        kmer, count = line.strip().split()
+        count = int(count)
+        kmer_count[count] += 1
+
+# 将结果写入TXT文件
+with open('M4_kmer_count_distribution.txt', 'w') as txtfile:
+    txtfile.write("Repeat Count\tNumber of K-mers\n")
+    for count, num_kmers in sorted(kmer_count.items()):
+        txtfile.write(f'{count}\t{num_kmers}\n')
+
+print("结果已保存到 M4_kmer_count_distribution.txt")
