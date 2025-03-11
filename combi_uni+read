@@ -1,0 +1,20 @@
+#!/usr/bin/bash
+#SBATCH -A MST109178                        # Account name/project number
+#SBATCH -J fastq_preprocessing              # Job name
+#SBATCH -p ngs13G                           # Partition Name 等同PBS裡面的 -q Queue name
+#SBATCH -c 2                                # 使用的core數 請參考Queue資源設定
+#SBATCH --mem=13g                           # 使用的記憶體量 請參考Queue資源設定
+#SBATCH -o %j.log                           # Path to the standard output file I
+#SBATCH -e %j.log                           # Path to the standard error ouput file
+#SBATCH --mail-user=lohaochia@ntu.edu.tw    # email
+#SBATCH --mail-type=END
+
+# Define file paths
+R1_FILE="/work/u1432917/M4extracted_read_ids/R1_matched_ids.txt"
+R2_FILE="/work/u1432917/M4extracted_read_ids/R2_matched_ids.txt"
+OUTPUT_FILE="/work/u1432917/M4extracted_read_ids/merged_reads_ids_union.txt"
+
+# Merge and get the union of read IDs
+cat "$R1_FILE" "$R2_FILE" | sort | uniq > "$OUTPUT_FILE"
+
+echo "Union of R1 and R2 read IDs saved in $OUTPUT_FILE"
