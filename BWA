@@ -1,0 +1,23 @@
+#!/usr/bin/bash
+#SBATCH -A MST109178                        
+#SBATCH -J extracting_matching_read_id      
+#SBATCH -p ngs53G                           
+#SBATCH -c 8                            
+#SBATCH --mem=53g                          
+#SBATCH -o %j.log                           
+#SBATCH -e %j.log                           
+#SBATCH --mail-user=lohaochia@ntu.edu.tw   
+#SBATCH --mail-type=END
+
+
+module load biology
+module load BWA/0.7.17
+module load SAMTOOLS/1.18
+
+##################################################
+bwa index /work/u1432917/M2extracted_reads/M2_assembly-scaffolds.fa
+bwa mem /work/u1432917/M2extracted_reads/M2_assembly-scaffolds.fa /work/u1432917/Clean_read/F2_trimmed_R1.fq.gz /work/u1432917/Clean_read/F2_trimmed_R2.fq.gz > /work/u1432917/M2extracted_reads/F2_to_M2_mapping.sam
+
+samtools view -S -b /work/u1432917/M2extracted_reads/F2_to_M2_mapping.sam > /work/u1432917/M2extracted_reads/F2_to_M2_mapping.bam
+samtools sort /work/u1432917/M2extracted_reads/F2_to_M2_mapping.bam -o /work/u1432917/M2extracted_reads/F2_to_M2_mapping_sorted.bam
+samtools index /work/u1432917/M2extracted_reads/F2_to_M2_mapping_sorted.bam
