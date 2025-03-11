@@ -1,0 +1,18 @@
+#!/usr/bin/bash
+#SBATCH -A MST109178                        # Account name/project number
+#SBATCH -J fastq_preprocessing              # Job name
+#SBATCH -p ngs372G                           # Partition Name 等同PBS裡面的 -q Queue name
+#SBATCH -c 56                                # 使用的core數 請參考Queue資源設定
+#SBATCH --mem=372g                           # 使用的記憶體量 請參考Queue資源設定
+#SBATCH -o %j.log                           # Path to the standard output file I
+#SBATCH -e %j.log                           # Path to the standard error ouput file
+#SBATCH --mail-user=lohaochia@ntu.edu.tw    # email
+#SBATCH --mail-type=END
+
+module load biology
+module load Jellyfish/2.3.0
+
+#計算kmer
+jellyfish count -m 35 -s 3G -t 28 -C -o /work/u1432917/F2_35mer.jf <(zcat Clean_read/F2_trimmed_R1.fq.gz Clean_read/F2_trimmed_R2.fq.gz)
+
+jellyfish dump -c  F2_35mer.jf | awk '{print $1, $2}' | grep '^AG' > female_AG_kmers.txt #only catch AG star mer
